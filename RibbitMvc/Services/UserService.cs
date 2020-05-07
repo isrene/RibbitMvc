@@ -8,7 +8,7 @@ using RibbitMvc.Models;
 
 namespace RibbitMvc.Services
 {
-    public class UserService : IUserService
+    public class UserService : ISecurityService
     {
         private readonly IContext _context;
         private readonly IUserRepository _users;

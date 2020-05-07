@@ -11,6 +11,6 @@ namespace RibbitMvc.Services
     {
         User GetBy(int id);
         User GetBy(string username);
-        User Create(string username, string password, UserProfile profile, DateTime? created);
+        User Create(string username, string password, UserProfile profile, DateTime? created = null);
     }
 }
