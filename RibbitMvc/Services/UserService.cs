@@ -8,7 +8,7 @@ using RibbitMvc.Models;
 
 namespace RibbitMvc.Services
 {
-    public class UserService : ISecurityService
+    public class UserService : IUserService
     {
         private readonly IContext _context;
         private readonly IUserRepository _users;
@@ -17,6 +17,43 @@ namespace RibbitMvc.Services
         {
             _context = context;
             _users = context.Users;
+        }
+
+        public IEnumerable<User> All(bool includeProfile)
+        {
+            return _users.All(includeProfile).ToArray();
+        }
+
+        public void Follow(string username, User follower)
+        {
+            _users.CreateFollower(username, follower);
+            _context.SaveChanges();
+        }
+
+
+        public User GetAllFor(int id)
+        {
+            return _users.GetBy(id,
+                includeProfile: true,
+                includeRibbits: true,
+                includeFollowers: true,
+                includeFollowing: true);
+        }
+
+        public User GetAllFor(string username)
+        {
+            return _users.GetBy(username,
+                includeProfile: true,
+                includeRibbits: true,
+                includeFollowers: true,
+                includeFollowing: true);
+        }
+
+
+        public void Unfollow(string username, User follower)
+        {
+            _users.DeleteFollower(username, follower);
+            _context.SaveChanges();
         }
 
         public User GetBy(int id)

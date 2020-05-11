@@ -95,11 +95,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gfx\bg-button.png" />
+    <Content Include="gfx\bg-footer.png" />
+    <Content Include="gfx\bg-header.png" />
+    <Content Include="gfx\bg.png" />
+    <Content Include="gfx\frog.jpg" />
+    <Content Include="gfx\logo-nettuts.png" />
+    <Content Include="gfx\logo.png" />
+    <Content Include="gfx\user1.png" />
+    <Content Include="gfx\user2.png" />
+    <Content Include="gfx\user3.png" />
     <Content Include="Global.asax" />
+    <Content Include="less.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RibbitControllerBase.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\IContext.cs" />
@@ -122,10 +138,16 @@
     <Compile Include="Services\RibbitService.cs" />
     <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Ui\RibbitViewPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
+    <Content Include="style.less" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_ViewStart.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Landing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -135,7 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Profile\" />
+    <Folder Include="Views\RibbitControllerBase\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
