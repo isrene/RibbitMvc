@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RibbitMvc.ViewModel;
+using RibbitMvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,14 +11,16 @@ namespace RibbitMvc.Controllers
     public class HomeController : RibbitControllerBase
     {
 
-        public HomeController(): base()
-        {
-
-        }
+        public HomeController(): base() { }
 
         public ActionResult Index()
         {
-            return View();
+            if (!Security.IsAuthenticated)
+            {
+                return View("Landing", new SignupViewModel());
+            }
+
+            throw new NotImplementedException();
         }
 
         [HttpPost]
@@ -35,17 +39,41 @@ namespace RibbitMvc.Controllers
 
         public ActionResult Profiles()
         {
-            throw new NotImplementedException();
+            var users = Users.All(true);
+            return View(users);
         }
 
         public ActionResult Followers()
         {
-            throw new NotImplementedException();
+            if (!Security.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var user = Users.GetAllFor(Security.UserId);
+
+            return View("Buddies", new BuddiesViewModel
+            {
+                User = user,
+                Buddies = user.Followers
+            });
+
         }
 
         public ActionResult Followings()
         {
-            throw new NotImplementedException();
+            if (!Security.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var user = Users.GetAllFor(Security.UserId);
+
+            return View("Buddies", new BuddiesViewModel
+            {
+                User = user,
+                Buddies = user.Followings
+            });
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RibbitMvc.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,28 @@ namespace RibbitMvc.Controllers
     {
         [HttpPost]
         [ValidateAntiForgeryToken]
-       public ActionResult SignUp()
+       public ActionResult SignUp(SignupViewModel model)
         {
-            throw new NotImplementedException();
+            if (Security.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Landing", model);
+            }
+
+            if (Security.DoesUserExists(model.Username))
+            {
+                ModelState.AddModelError("Username", "Username is already taken");
+
+                return View("Landing", model);
+            }
+
+            Security.CreateUser(model);
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

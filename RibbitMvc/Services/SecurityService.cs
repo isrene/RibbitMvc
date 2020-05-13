@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.SessionState;
 using RibbitMvc.Models;
+using RibbitMvc.ViewModel;
 
 namespace RibbitMvc.Services
 {
@@ -30,9 +31,11 @@ namespace RibbitMvc.Services
             return Crypto.VerifyHashedPassword(user.Password, password);
         }
 
-        public User CreateUser(string username, string password, bool login= true)
+        public User CreateUser(SignupViewModel signupModel, bool login= true)
         {
-            var user = _users.Create(username, password, new UserProfile());
+            var user = _users.Create(signupModel.Username, signupModel.Password, new UserProfile() {
+                Email = signupModel.Email
+            });
 
             if (login)
             {
