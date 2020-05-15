@@ -12,12 +12,12 @@
 
             @if (Security.IsAuthenticated)
             {
-                <nav>
-                    @Html.RouteLink("Followers", "Followers")
-                    @Html.RouteLink("Following", "Following")
-                    @Html.RouteLink("Profiles", "Profiles")
-                    @Html.RouteLink("Edit Profile", "ProfileDefault")
-                </nav>
+            <nav>
+                @Html.RouteLink("Followers", "Followers")
+                @Html.RouteLink("Following", "Following")
+                @Html.RouteLink("Profiles", "Profiles")
+                @Html.RouteLink("Edit Profile", "ProfileDefault")
+            </nav>
                 
                 using (var logoutForm = Html.BeginForm("Logout", "Account"))
                 {
@@ -25,7 +25,9 @@
                 }
             }
             else {
-             <span>Yer Login Form</span>   
+                var model = (Model as LoginSignupViewModel) ?? new LoginSignupViewModel();
+
+                @Html.Partial("_LoginPartial", model);
             }
         </div>
     </header>

@@ -17,10 +17,12 @@ namespace RibbitMvc.Controllers
         {
             if (!Security.IsAuthenticated)
             {
-                return View("Landing", new SignupViewModel());
+                return View("Landing", new LoginSignupViewModel());
             }
 
-            throw new NotImplementedException();
+            var timeline = Ribbits.GetTimelineFor(Security.UserId).ToArray();
+
+            return View("TimeLine", timeline);
         }
 
         [HttpPost]
@@ -76,11 +78,26 @@ namespace RibbitMvc.Controllers
             });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
+        [ChildActionOnly]
         public ActionResult Create()
         {
-            throw new NotImplementedException();
+            return PartialView("_CreateRibbitPartial", new CreateRibbitViewModel());
+        }
+
+        [HttpPost]
+        [ChildActionOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateRibbitViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Ribbits.Create(Security.UserId, model.Status);
+
+                Response.Redirect("/");
+            }
+
+            return PartialView("_CreateRibbitPartial", model);
         }
 
     }

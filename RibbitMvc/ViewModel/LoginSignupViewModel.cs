@@ -9,5 +9,7 @@ namespace RibbitMvc.ViewModel
     {
         public LoginViewModel Login { get; set; }
         public SignupViewModel Signup { get; set; }
+
+       
     }
 }

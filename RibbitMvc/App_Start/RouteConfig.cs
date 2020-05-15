@@ -63,8 +63,8 @@ namespace RibbitMvc
            );
 
 
-            routes.MapRoute(
-           name: "Profile",
+           routes.MapRoute(
+           name: "Profiles",
            url: "profiles",
            defaults: new { controller = "home", action = "profiles" }
            );
