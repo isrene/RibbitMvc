@@ -24,12 +24,27 @@ namespace RibbitMvc.Services
             return _users.All(includeProfile).ToArray();
         }
 
+        public User GetBy(int id)
+        {
+            return _users.GetBy(id);
+        }
+
+        public User GetBy(string username)
+        {
+            return _users.GetBy(username);
+        }
+
         public void Follow(string username, User follower)
         {
             _users.CreateFollower(username, follower);
             _context.SaveChanges();
         }
 
+        public void Unfollow(string username, User follower)
+        {
+            _users.DeleteFollower(username, follower);
+            _context.SaveChanges();
+        }
 
         public User GetAllFor(int id)
         {
@@ -50,21 +65,9 @@ namespace RibbitMvc.Services
         }
 
 
-        public void Unfollow(string username, User follower)
-        {
-            _users.DeleteFollower(username, follower);
-            _context.SaveChanges();
-        }
+        
 
-        public User GetBy(int id)
-        {
-            return _users.GetBy(id);
-        }
-
-        public User GetBy(string username)
-        {
-            return _users.GetBy(username);
-        }
+        
 
         public User Create(string username, string password, UserProfile profile, DateTime? created)
         {

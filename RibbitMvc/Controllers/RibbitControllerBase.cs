@@ -16,6 +16,7 @@ namespace RibbitMvc.Controllers
         public IRibbitService Ribbits { get; private set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; set; }
+        public IUserProfileService Profiles { get; private set; }
 
         public RibbitControllerBase()
         {
@@ -23,7 +24,8 @@ namespace RibbitMvc.Controllers
             Users = new UserService(DataContext);
             Ribbits = new RibbitService(DataContext);
             Security = new SecurityService(Users);
-
+            CurrentUser = Security.GetCurrentUser();
+            Profiles = new UserProfileService(DataContext);
         }
 
         protected override void Dispose(bool disposing)
@@ -34,6 +36,16 @@ namespace RibbitMvc.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public ActionResult GoToReferrer()
+        {
+            if (Request.UrlReferrer != null)
+            {
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

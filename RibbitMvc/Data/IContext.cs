@@ -10,6 +10,7 @@ namespace RibbitMvc.Data
     {
         IUserRepository Users { get; }
         IRibbitRepository Ribbits { get; }
+        IUserProfileRepository Profiles { get; }
 
         int SaveChanges();
     }

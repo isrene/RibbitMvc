@@ -13,11 +13,14 @@ namespace RibbitMvc.Data
         public Context(
             DbContext context = null, 
             IUserRepository users = null, 
-            IRibbitRepository ribbits = null)
+            IRibbitRepository ribbits = null,
+            IUserProfileRepository profiles =null)
         {
             _db = context ?? new RibbitDatabase();
             Users = users ?? new UserRepository(_db, true);
             Ribbits = ribbits ?? new RibbitRepository(_db, true);
+            Profiles = profiles ?? new UserProfileRepository(_db, true);
+
         }
 
         public IUserRepository Users
@@ -31,6 +34,8 @@ namespace RibbitMvc.Data
             get;
             private set;
         }
+
+        public IUserProfileRepository Profiles { get; private set; }
 
         public int SaveChanges()
         {

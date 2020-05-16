@@ -29,19 +29,34 @@ namespace RibbitMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Follow(string username)
         {
-            throw new NotImplementedException(username + " followed");
+            if (!Security.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Users.Follow(username, Security.GetCurrentUser());
+
+            return GoToReferrer();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Unfollow(string username)
         {
-            throw new NotImplementedException(username + " unfollowed");
+            if (!Security.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Users.Unfollow(username, Security.GetCurrentUser());
+
+            return GoToReferrer();
         }
 
-        public ActionResult Profiles()
+        public new ActionResult Profiles()
         {
             var users = Users.All(true);
+
             return View(users);
         }
 
@@ -71,7 +86,7 @@ namespace RibbitMvc.Controllers
 
             var user = Users.GetAllFor(Security.UserId);
 
-            return View("Buddies", new BuddiesViewModel
+            return View("Buddies", new BuddiesViewModel()
             {
                 User = user,
                 Buddies = user.Followings

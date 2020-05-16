@@ -18,9 +18,10 @@
                 @Html.RouteLink("Profiles", "Profiles")
                 @Html.RouteLink("Edit Profile", "ProfileDefault")
             </nav>
-                
+               
                 using (var logoutForm = Html.BeginForm("Logout", "Account"))
                 {
+                    @Html.AntiForgeryToken()
                     <input type="submit" value="Log Out" />
                 }
             }
@@ -40,15 +41,13 @@
                 </div>
             }
 
-            @RenderBody()
-
             @if (IsSectionDefined("RightPanel"))
             {
                 <div class="panel right">
                     @RenderSection("RightPanel")
                 </div>
             }
-
+            @RenderBody()
             @if (IsSectionDefined("LeftPanel"))
             {
                 <div class="panel left">

@@ -64,7 +64,7 @@ namespace RibbitMvc.Controllers
 
             Security.Login(login.Username);
 
-            return RedirectToAction("Index", "Home");
+            return   GoToReferrer();
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace RibbitMvc.Controllers
         {
             Security.Logout();
 
-            throw new NotImplementedException();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

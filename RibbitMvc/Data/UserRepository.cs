@@ -16,6 +16,18 @@ namespace RibbitMvc.Data
             return includeProfile ? DbSet.Include(u => u.Profile).AsQueryable() : All();
         }
 
+        public User GetBy(int id)
+        {
+            return Find(u => u.UserId == id);
+        }
+
+        public User GetBy(string username)
+        {
+            return Find(u => u.UserName == username);
+        }
+
+
+
         public void CreateFollower(string username, User follower)
         {
             var user = GetBy(username);
@@ -40,7 +52,7 @@ namespace RibbitMvc.Data
             {
                 Context.SaveChanges();
             }
-            
+
         }
 
         public User GetBy(int id, bool includeProfile = false, bool includeRibbits = false, bool includeFollowers = false,
@@ -51,7 +63,7 @@ namespace RibbitMvc.Data
             return query.SingleOrDefault(u => u.UserId == id);
         }
 
-        
+
 
         public User GetBy(string username, bool includeProfile = false, bool includeRibbits = false, bool includeFollowers = false,
             bool includeFollowing = false)

@@ -37,10 +37,10 @@ namespace RibbitMvc
 
             // following
             routes.MapRoute(
-              name: "Following",
-              url: "following",
-              defaults: new { controller = "home", action = "following" }
-              );
+                 name: "Following",
+                 url: "following",
+                 defaults: new { controller = "home", action = "following" }
+             );
 
             // create
             routes.MapRoute(
@@ -51,7 +51,7 @@ namespace RibbitMvc
 
             // Follows
             routes.MapRoute(
-            name: "Follows",
+            name: "Follow",
             url: "follow",
             defaults: new { controller = "home", action = "follow" }
             );
